@@ -3,7 +3,7 @@ name: Auto Label New Issues, PRs, and Discussions
 on:
   issues:
     types: [opened]
-  pull_request:
+  pull_request_target:
     types: [opened]
   discussion:
     types: [created]
@@ -32,9 +32,9 @@ jobs:
 
       - name: Add context-v2 label to new PR
         id: label-pr
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request_target'
         run: |
-          PR_NUMBER=${{ github.event.pull_request.number }}
+          PR_NUMBER=${{ github.event.pull_request_target.number }}
           gh pr edit "$PR_NUMBER" --add-label "context-v2"
 
       - name: get label id
